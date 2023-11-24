@@ -42,29 +42,31 @@ module serverfarm 'modules/web/serverfarm/main.bicep' = {
       size: 'B1'
       tier: 'Basic'
     }
-    kind: 'Linux'
-    module website 'modules/web/site/main.bicep' =  {
-      dependsOn: [
-        serverfarm
-        containerRegistry
-        keyvault
-      ]
-      name: '${uniqueString(deployment().name)}-site'
-      params: {
-        name: siteName
-        location: location
-        serverFarmResourceId: resourceId('Microsoft.Web/serverfarms', appServicePlanName)
-        siteConfig: {
-          kind: 'app'
-          linuxFxVersion: 'DOCKER|${containerRegistryName}.azurecr.io/${containerRegistryImageName}:${containerRegistryImageVersion}'
-          appCommandLine: ''
-        }
-        appSettingsKeyValuePairs: {
-          WEBSITES_ENABLE_APP_SERVICE_STORAGE: false
-        }
-        // dockerRegistryServerUrl: 'https://${containerRegistryName}.azurecr.io'
-        // dockerRegistryServerUserName: keyvault.getSecret(kevVaultSecretNameACRUsername)
-        // dockerRegistryServerPassword: keyvault.getSecret(kevVaultSecretNameACRPassword1)
-      }
+    //kind: 'Linux'
+    reserved: true
+  }
+}
+module website 'modules/web/site/main.bicep' =  {
+  dependsOn: [
+    serverfarm
+    containerRegistry
+    keyvault
+  ]
+  name: '${uniqueString(deployment().name)}-site'
+  params: {
+    name: siteName
+    location: location
+    kind: 'app'
+    serverFarmResourceId: resourceId('Microsoft.Web/serverfarms', appServicePlanName)
+    siteConfig: {
+      linuxFxVersion: 'DOCKER|${containerRegistryName}.azurecr.io/${containerRegistryImageName}:${containerRegistryImageVersion}'
+      appCommandLine: ''
     }
-
+    appSettingsKeyValuePairs: {
+      WEBSITES_ENABLE_APP_SERVICE_STORAGE: false
+    }
+    // dockerRegistryServerUrl: 'https://${containerRegistryName}.azurecr.io'
+    // dockerRegistryServerUserName: keyvault.getSecret(kevVaultSecretNameACRUsername)
+    // dockerRegistryServerPassword: keyvault.getSecret(kevVaultSecretNameACRPassword1)
+  }
+}
