@@ -23,10 +23,10 @@ module containerRegistry 'modules/container-registry/registry/main.bicep' = {
     name: 'containerRegistryName'
     location: location
     acrAdminUserEnabled: true
-    adminCredentialsKeyVaultResourceId: resourceId('Microsoft.KeyVault/vaults', keyVaultName)
-    adminCredentialsKeyVaultSecretUserName: kevVaultSecretNameACRUsername
-    adminCredentialsKeyVaultSecretPassword1: kevVaultSecretNameACRPassword1
-    adminCredentialsKeyVaultSecretPassword2: kevVaultSecretNameACRPassword2
+    // adminCredentialsKeyVaultResourceId: resourceId('Microsoft.KeyVault/vaults', keyVaultName)
+    // adminCredentialsKeyVaultSecretUserName: kevVaultSecretNameACRUsername
+    // adminCredentialsKeyVaultSecretPassword1: kevVaultSecretNameACRPassword1
+    // adminCredentialsKeyVaultSecretPassword2: kevVaultSecretNameACRPassword2
   }
 }
 
@@ -43,31 +43,28 @@ module serverfarm 'modules/web/serverfarm/main.bicep' = {
       tier: 'Basic'
     }
     kind: 'Linux'
-    reserved: true
-  }
-}
-module website 'modules/web/site/main.bicep' =  {
-  dependsOn: [
-    serverfarm
-    containerRegistry
-    keyvault
-  ]
-  name: '${uniqueString(deployment().name)}-site'
-  params: {
-    name: siteName
-    location: location
-    kind: 'app'
-    serverFarmResourceId: resourceId('Microsoft.Web/serverfarms', appServicePlanName)
-    siteConfig: {
-      linuxFxVersion: 'DOCKER|${containerRegistryName}.azurecr.io/${containerRegistryImageName}:${containerRegistryImageVersion}'
-      appCommandLine: ''
+    module website 'modules/web/site/main.bicep' =  {
+      dependsOn: [
+        serverfarm
+        containerRegistry
+        keyvault
+      ]
+      name: '${uniqueString(deployment().name)}-site'
+      params: {
+        name: siteName
+        location: location
+        serverFarmResourceId: resourceId('Microsoft.Web/serverfarms', appServicePlanName)
+        siteConfig: {
+          kind: 'app'
+          linuxFxVersion: 'DOCKER|${containerRegistryName}.azurecr.io/${containerRegistryImageName}:${containerRegistryImageVersion}'
+          appCommandLine: ''
+        }
+        appSettingsKeyValuePairs: {
+          WEBSITES_ENABLE_APP_SERVICE_STORAGE: false
+        }
+        // dockerRegistryServerUrl: 'https://${containerRegistryName}.azurecr.io'
+        // dockerRegistryServerUserName: keyvault.getSecret(kevVaultSecretNameACRUsername)
+        // dockerRegistryServerPassword: keyvault.getSecret(kevVaultSecretNameACRPassword1)
+      }
     }
-    appSettingsKeyValuePairs: {
-      WEBSITES_ENABLE_APP_SERVICE_STORAGE: false
-    }
-    dockerRegistryServerUrl: 'https://${containerRegistryName}.azurecr.io'
-    dockerRegistryServerUserName: keyvault.getSecret(kevVaultSecretNameACRUsername)
-    dockerRegistryServerPassword: keyvault.getSecret(kevVaultSecretNameACRPassword1)
-  }
-}
 
