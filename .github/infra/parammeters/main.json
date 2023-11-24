@@ -1,0 +1,22 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "keyVaultName": {
+            "value": "chiaradigi-kv"
+        },
+        "containerRegistryName": {
+            "value": "chiaradigiacr"
+        },
+        "appServicePlanName": {
+            "value": "chiaradigi-asp"
+        },
+        "siteName": {
+            "value": "chiaradigi-ex3"
+        },
+        "containerRegistryImageName": {
+            "value": "chiaradigiapp-ex3"
+        }
+    }
+}
+
