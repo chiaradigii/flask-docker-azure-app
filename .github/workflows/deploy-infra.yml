@@ -63,7 +63,7 @@ jobs:
           scope: /subscriptions/${{ env.SUBSCRIPTION_ID_DEV }}/resourceGroups/${{ env.RESOURCE_GROUP_DEV }}
           subscriptionId: ${{ env.SUBSCRIPTION_ID_DEV }}
           resourceGroupName: ${{ env.RESOURCE_GROUP_DEV }}
-          template: .github/infra/key-vault.bicep  # Adjusted the path
+          template: .github/infra/key-vault.bicep  
           parameters: .github/infra/parameters/key-vault.json  # Adjusted the path
           deploymentName: '${{env.USER_ALIAS}}-kv'
           failOnStdErr: false

@@ -12,7 +12,6 @@ param kevVaultSecretNameACRPassword2 string = 'acr-password2'
 resource keyvault 'Microsoft.KeyVault/vaults@2023-02-01' existing = {
   name: keyVaultName
 }
-// Deploy Azure Container Registry
 
 module containerRegistry 'modules/container-registry/registry/main.bicep' = {
   dependsOn: [
@@ -20,20 +19,20 @@ module containerRegistry 'modules/container-registry/registry/main.bicep' = {
   ]
   name: '${uniqueString(deployment().name)}-acr'
   params: {
-    name: 'containerRegistryName'
+    name: containerRegistryName
     location: location
     acrAdminUserEnabled: true
-    // adminCredentialsKeyVaultResourceId: resourceId('Microsoft.KeyVault/vaults', keyVaultName)
-    // adminCredentialsKeyVaultSecretUserName: kevVaultSecretNameACRUsername
-    // adminCredentialsKeyVaultSecretPassword1: kevVaultSecretNameACRPassword1
-    // adminCredentialsKeyVaultSecretPassword2: kevVaultSecretNameACRPassword2
+    adminCredentialsKeyVaultResourceId: resourceId('Microsoft.KeyVault/vaults', keyVaultName)
+    adminCredentialsKeyVaultSecretUserName: kevVaultSecretNameACRUsername
+    adminCredentialsKeyVaultSecretPassword1: kevVaultSecretNameACRPassword1
+    adminCredentialsKeyVaultSecretPassword2: kevVaultSecretNameACRPassword2
   }
 }
 
 module serverfarm 'modules/web/serverfarm/main.bicep' = {
   name: '${uniqueString(deployment().name)}-asp'
   params: {
-    name: 'appServicePlanName'
+    name: appServicePlanName
     location: location
     sku: {
       capacity: 1
@@ -42,10 +41,11 @@ module serverfarm 'modules/web/serverfarm/main.bicep' = {
       size: 'B1'
       tier: 'Basic'
     }
-    //kind: 'Linux'
+    kind: 'Linux'
     reserved: true
   }
 }
+
 module website 'modules/web/site/main.bicep' =  {
   dependsOn: [
     serverfarm
@@ -64,9 +64,9 @@ module website 'modules/web/site/main.bicep' =  {
     }
     appSettingsKeyValuePairs: {
       WEBSITES_ENABLE_APP_SERVICE_STORAGE: false
+      dockerRegistryServerUrl: 'https://${containerRegistryName}.azurecr.io'
+      dockerRegistryServerUserName: keyvault.getSecret(kevVaultSecretNameACRUsername)
+      dockerRegistryServerPassword: keyvault.getSecret(kevVaultSecretNameACRPassword1)
     }
-    dockerRegistryServerUrl: 'https://${containerRegistryName}.azurecr.io'
-    dockerRegistryServerUserName: keyvault.getSecret(kevVaultSecretNameACRUsername)
-    dockerRegistryServerPassword: keyvault.getSecret(kevVaultSecretNameACRPassword1)
   }
 }
