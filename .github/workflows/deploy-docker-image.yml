@@ -27,7 +27,7 @@ jobs:
     - name: Build and Push to ACR
       uses: docker/build-push-action@v2
       with:
-        context: .
-        file: ./app/Dockerfile  # Specify the correct path to your Dockerfile
+        context: ./.github/app  
+        file: ./.github/app/Dockerfile     
         push: true
         tags: chiaradigiacr.azurecr.io/chiaradigiapp-ex3:${{ steps.date.outputs.date }}-${{ github.run_number }}
