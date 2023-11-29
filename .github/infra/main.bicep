@@ -22,10 +22,6 @@ module containerRegistry 'modules/container-registry/registry/main.bicep' = {
     name: containerRegistryName
     location: location
     acrAdminUserEnabled: true
-    adminCredentialsKeyVaultResourceId: resourceId('Microsoft.KeyVault/vaults', keyVaultName)
-    adminCredentialsKeyVaultSecretUsername: kevVaultSecretNameACRUsername
-    adminCredentialsKeyVaultSecretUserPassword1: kevVaultSecretNameACRPassword1
-    adminCredentialsKeyVaultSecretUserPassword2: kevVaultSecretNameACRPassword2
   }
 }
 
@@ -65,8 +61,9 @@ module website 'modules/web/site/main.bicep' =  {
     appSettingsKeyValuePairs: {
       WEBSITES_ENABLE_APP_SERVICE_STORAGE: false
       dockerRegistryServerUrl: 'https://${containerRegistryName}.azurecr.io'
-      dockerRegistryServerUserName: keyvault.getSecret(kevVaultSecretNameACRUsername)
-      dockerRegistryServerPassword: keyvault.getSecret(kevVaultSecretNameACRPassword1)
+      dockerRegistryServerUserName: 'chiaradigiacr'
+      dockerRegistryServerPassword: '0FRJR/OGH/6s2hRElhjZ+CHfAy71UAPSBoXQPpqHXt+ACRAVre6p'
+    
     }
   }
 }
