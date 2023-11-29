@@ -3,9 +3,6 @@ on:
     push:
         paths:
             - 'app/**'
-
-
-
 env:
     REGISTRY_LOGIN_SERVER: 'chiaradigi.azurecr.io'
     KEY_VAULT_SECRET_NAME_ACR_USERNAME: 'acr-username'
