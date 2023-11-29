@@ -23,9 +23,9 @@ module containerRegistry 'modules/container-registry/registry/main.bicep' = {
     location: location
     acrAdminUserEnabled: true
     adminCredentialsKeyVaultResourceId: resourceId('Microsoft.KeyVault/vaults', keyVaultName)
-    adminCredentialsKeyVaultSecretUserName: kevVaultSecretNameACRUsername
-    adminCredentialsKeyVaultSecretPassword1: kevVaultSecretNameACRPassword1
-    adminCredentialsKeyVaultSecretPassword2: kevVaultSecretNameACRPassword2
+    adminCredentialsKeyVaultSecretUsername: kevVaultSecretNameACRUsername
+    adminCredentialsKeyVaultSecretUserPassword1: kevVaultSecretNameACRPassword1
+    adminCredentialsKeyVaultSecretUserPassword2: kevVaultSecretNameACRPassword2
   }
 }
 
@@ -40,8 +40,8 @@ module serverfarm 'modules/web/serverfarm/main.bicep' = {
       name: 'B1'
       size: 'B1'
       tier: 'Basic'
+      kind: 'Linux'
     }
-    kind: 'Linux'
     reserved: true
   }
 }
