@@ -20,7 +20,8 @@
       }
     },
     "keyVaultName": {
-      "value": "chiaradigi-kv"
+      "type": "string",
+      "defaultValue": "chiaradigi-kv"
   }
   }
 }
