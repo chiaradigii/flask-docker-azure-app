@@ -1,27 +1,12 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
-  "metadata": {
-    "_generator": {
-      "name": "bicep",
-      "version": "0.20.4.51522",
-      "templateHash": "2852890936976905827"
-    }
-  },
-  "resources": [
-
-  ],
   "parameters": {
     "location": {
-      "type": "string",
-      "defaultValue": "Switzerland North",
-      "metadata": {
-        "description": "Location for all resources."
-      }
+      "value": "Switzerland North" // Provide a valid value
     },
     "keyVaultName": {
-      "type": "string",
-      "defaultValue": "chiaradigi-kv"
-  }
+      "value": "chiaradigi-kv"
+    }
   }
 }
