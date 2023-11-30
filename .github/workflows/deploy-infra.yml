@@ -3,7 +3,7 @@ name: deploy-infra
 on:
   push:
     paths:
-      - '.github/**'  # Adjusted the path to include the .github directory
+      - '.github/**' 
   workflow_dispatch:
 
 env:
@@ -61,7 +61,7 @@ jobs:
       - name: deploy-key-vault
         uses: azure/arm-deploy@v1.0.9
         with:
-          scope: /subscriptions/${{ env.SUBSCRIPTION_ID_DEV }}/resourceGroups/${{ env.RESOURCE_GROUP_DEV }}
+          scope: /subscriptions/${{ env.SUBSCRIPTION_ID_DEV }}
           subscriptionId: ${{ env.SUBSCRIPTION_ID_DEV }}
           resourceGroupName: ${{ env.RESOURCE_GROUP_DEV }}
           template: .github/infra/key-vault.bicep  
