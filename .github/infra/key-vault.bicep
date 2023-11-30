@@ -1,8 +1,6 @@
 param keyVaultName string
 param location string = resourceGroup().location
 
-var principalId = '7200f83e-ec45-4915-8c52-fb94147cfe5a'
-
 module keyvault 'modules/key-vault/vault/main.bicep' = {
   name: '${uniqueString(deployment().name)}-kv'
   params: {
@@ -11,8 +9,9 @@ module keyvault 'modules/key-vault/vault/main.bicep' = {
     enableVaultForDeployment: true
     roleAssignments: [
       {
-        principalId: principalId
+        principalId: '7200f83e-ec45-4915-8c52-fb94147cfe5a'
         roleDefinitionIdOrName: 'Key Vault Secrets User'
+        principalType: 'ServicePrincipal'
       }
     ]
   }
