@@ -8,5 +8,19 @@
       "templateHash": "2852890936976905827"
     }
   },
-  "resources": []
+  "resources": [
+
+  ],
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "eastus",
+      "metadata": {
+        "description": "Location for all resources."
+      }
+    },
+    "keyVaultName": {
+      "value": "chiaradigi-kv"
+  }
+  }
 }
