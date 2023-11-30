@@ -2,7 +2,7 @@ name: deploy-app
 on:
     push:
         paths:
-            - 'app/**'
+            - '.github/app/**'
 env:
     REGISTRY_LOGIN_SERVER: 'chiaradigi.azurecr.io'
     KEY_VAULT_SECRET_NAME_ACR_USERNAME: 'acr-username'
