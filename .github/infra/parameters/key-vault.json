@@ -14,7 +14,7 @@
   "parameters": {
     "location": {
       "type": "string",
-      "defaultValue": "eastus",
+      "defaultValue": "Switzerland North",
       "metadata": {
         "description": "Location for all resources."
       }
