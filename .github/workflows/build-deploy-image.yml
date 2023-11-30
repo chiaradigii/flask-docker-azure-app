@@ -65,6 +65,5 @@ jobs:
       uses: azure/webapps-deploy@v3
       with:
         app-name: chiaradigi-ex3
-        slot-name: 'production'  # Change this if deploying to a specific slot
         images: |
-          ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_BASE_NAME }}:${{ steps.image-version.outputs.version }}
+          ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_BASE_NAME }}:${{ steps.date.outputs.date }}-${{ github.run_number}}
