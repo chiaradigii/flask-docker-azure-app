@@ -3,10 +3,22 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "location": {
-      "value": "Switzerland North" // Provide a valid value
+      "value": "Switzerland North" 
     },
     "keyVaultName": {
       "value": "chiaradigi-kv"
+    },
+    "roleAssignments": {
+      "value": [
+        {
+          "principalId": "7200f83e-ec45-4915-8c52-fb94147cfe5a",
+          "roleDefinitionIdOrName": "Key Vault Secrets User",
+          "principalType": "ServicePrincipal"
+        }
+      ]
+    },
+    "containerRegistryName": {
+      "value": "chiaradigiacr"
     }
   }
 }
