@@ -7,10 +7,6 @@
     },
     "keyVaultName": {
       "value": "chiaradigi-kv"
-    },
-
-    "containerRegistryName": {
-      "value": "chiaradigiacr"
     }
   }
 }
