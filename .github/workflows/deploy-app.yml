@@ -4,9 +4,9 @@ on:
     paths:
       - "app/**"
   workflow_dispatch:
-    
+
 env:
-    REGISTRY_LOGIN_SERVER: 'chiaradigi.azurecr.io'
+    REGISTRY_LOGIN_SERVER: 'chiaradigiacr.azurecr.io'
     KEY_VAULT_SECRET_NAME_ACR_USERNAME: 'acr-username'
     KEY_VALUE_SECRET_NAME_ACR_PASSWORD: 'acr-password1'
     KEY_VAULT_NAME: 'chiaradigi-kv'
