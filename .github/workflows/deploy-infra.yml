@@ -53,7 +53,7 @@ jobs:
       - name: deploy-key-vault
         uses: azure/arm-deploy@v1.0.9
         with:
-          scope : resourcegroup
+          scope : subscription
           subscriptionId: ${{ env.SUBSCRIPTION_ID_DEV }}
           resourceGroupName: ${{ env.RESOURCE_GROUP_DEV }}
           template: ./infra/key-vault.bicep
@@ -65,7 +65,7 @@ jobs:
       - name: deploy-main
         uses: azure/arm-deploy@v1.0.9
         with:
-          scope : resourcegroup
+          scope : subscription
           subscriptionId: ${{ env.SUBSCRIPTION_ID_DEV }}
           resourceGroupName: ${{ env.RESOURCE_GROUP_DEV }}
           template: ./infra/main.bicep  # Adjusted the path
