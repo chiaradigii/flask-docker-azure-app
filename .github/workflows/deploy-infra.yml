@@ -73,7 +73,7 @@ jobs:
       - name: deploy-main
         uses: azure/arm-deploy@v1.0.9
         with:
-          scope: /subscriptions/${{ env.SUBSCRIPTION_ID_DEV }}/resourceGroups/${{ env.RESOURCE_GROUP_DEV }}
+          scope: resourcegroup
           subscriptionId: ${{ env.SUBSCRIPTION_ID_DEV }}
           resourceGroupName: ${{ env.RESOURCE_GROUP_DEV }}
           template: .github/infra/main.bicep  # Adjusted the path
