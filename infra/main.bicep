@@ -7,12 +7,25 @@ param siteName string
 param location string = resourceGroup().location
 param keyVaultSecretNameACRUsername string = 'acr-username'
 param keyVaultSecretNameACRPassword1 string = 'acr-password1'
+param keyVaultSecretNameACRPassword2 string = 'acr-password2'
 
 resource keyvault 'Microsoft.KeyVault/vaults@2023-02-01' existing = {
   name: keyVaultName
 }
-resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-07-01' existing = {
-  name: containerRegistryName
+module containerRegistry 'modules/container-registry/registry/main.bicep' = {
+  dependsOn: [
+    keyvault
+  ]
+  name: '${uniqueString(deployment().name)}acr'
+  params: {
+    name: containerRegistryName
+    location: location
+    acrAdminUserEnabled: true
+    adminCredentialsKeyVaultResourceId: resourceId('Microsoft.KeyVault/vaults', keyVaultName)
+    adminCredentialsKeyVaultSecretUserName: keyVaultSecretNameACRUsername
+    adminCredentialsKeyVaultSecretUserPassword1: keyVaultSecretNameACRPassword1
+    adminCredentialsKeyVaultSecretUserPassword2: keyVaultSecretNameACRPassword2
+  }
 }
 
 
