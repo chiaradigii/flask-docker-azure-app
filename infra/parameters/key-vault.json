@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "location": {
-      "value": "Switzerland North" 
+      "value": "West Europe" 
     },
     "keyVaultName": {
       "value": "chiaradigi-kv"

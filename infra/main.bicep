@@ -22,7 +22,7 @@ module serverfarm 'modules/web/serverfarm/main.bicep' = {
     name: appServicePlanName
     location: location
     sku: {
-      capacity: 1
+      capacity: '1'
       family: 'B'
       name: 'B1'
       size: 'B1'
@@ -32,10 +32,10 @@ module serverfarm 'modules/web/serverfarm/main.bicep' = {
   }
 }
 
-module website 'modules/web/site/main.bicep' =  {
+module website 'modules/web/site/main.bicep' = {
   dependsOn: [
-    serverfarm
     containerRegistry
+    serverfarm
     keyvault
   ]
   name: '${uniqueString(deployment().name)}-site'
@@ -51,8 +51,8 @@ module website 'modules/web/site/main.bicep' =  {
     appSettingsKeyValuePairs: {
       WEBSITES_ENABLE_APP_SERVICE_STORAGE: 'false'
     }
-      dockerRegistryServerUrl: 'https://${containerRegistryName}.azurecr.io'
-      dockerRegistryServerUserName: keyvault.getSecret(keyVaultSecretNameACRUsername)
-      dockerRegistryServerPassword: keyvault.getSecret(keyVaultSecretNameACRPassword1)  
+    dockerRegistryServerUrl: 'https://${containerRegistryName}.azurecr.io'
+    dockerRegistryServerUserName: keyvault.getSecret(keyVaultSecretNameACRUsername)
+    dockerRegistryServerPassword: keyvault.getSecret(keyVaultSecretNameACRPassword1)
   }
 }

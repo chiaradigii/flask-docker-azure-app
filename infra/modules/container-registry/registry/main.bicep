@@ -146,7 +146,7 @@ param adminCredentialsKeyVaultSecretUserName string = ''
 @secure()
 param adminCredentialsKeyVaultSecretUserPassword1 string  = ''
 @secure()
-param adminCredentialsKeyVaultSecretUserPassword2 string
+param adminCredentialsKeyVaultSecretUserPassword2 string = ''
 
 var formattedUserAssignedIdentities = reduce(map((managedIdentities.?userAssignedResourceIds ?? []), (id) => { '${id}': {} }), {}, (cur, next) => union(cur, next)) // Converts the flat array to an object like { '${id1}': {}, '${id2}': {} }
 
@@ -306,15 +306,14 @@ resource registry_lock 'Microsoft.Authorization/locks@2020-05-01' = if (!empty(l
 }
 
 resource adminCredentialsKeyVault 'Microsoft.KeyVault/vaults@2021-10-01' existing = if (!empty(adminCredentialsKeyVaultResourceId)) {
-  name: last(split((!empty(adminCredentialsKeyVaultResourceId) ? adminCredentialsKeyVaultResourceId: 'dummyVault'), '/'))!
-  //scope: resourceGroup(split(adminCredentialsKeyVaultResourceId, '/')[2], split(adminCredentialsKeyVaultResourceId, '/')[4])
+  name: last(split((!empty(adminCredentialsKeyVaultResourceId) ? adminCredentialsKeyVaultResourceId : 'dummyVault'), '/'))!
 }
 
 resource secretAdminUserName 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = if (!empty(adminCredentialsKeyVaultSecretUserName)) {
   name: !empty(adminCredentialsKeyVaultSecretUserName) ? adminCredentialsKeyVaultSecretUserName : 'dummySecret'
   parent: adminCredentialsKeyVault
   properties: {
-    value: registry.listCredentials().username
+   value: registry.listCredentials().username
   }
 }
 
@@ -322,15 +321,16 @@ resource secretAdminPassword1 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = i
   name: !empty(adminCredentialsKeyVaultSecretUserPassword1) ? adminCredentialsKeyVaultSecretUserPassword1 : 'dummySecret'
   parent: adminCredentialsKeyVault
   properties: {
-    value: registry.listCredentials().passwords[0].value
+   value: registry.listCredentials().passwords[0].value
   }
 }
+
 
 resource secretAdminPassword2 'Microsoft.KeyVault/vaults/secrets@2023-02-01' = if (!empty(adminCredentialsKeyVaultSecretUserPassword2)) {
   name: !empty(adminCredentialsKeyVaultSecretUserPassword2) ? adminCredentialsKeyVaultSecretUserPassword2 : 'dummySecret'
   parent: adminCredentialsKeyVault
   properties: {
-    value: registry.listCredentials().passwords[1].value
+   value: registry.listCredentials().passwords[1].value
   }
 }
 
