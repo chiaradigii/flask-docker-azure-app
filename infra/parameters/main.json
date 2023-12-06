@@ -9,16 +9,16 @@
             "value": "chiaradigii-kv"
         },
         "containerRegistryName": {
-            "value": "chiaradigiacr"
+            "value": "chiaradigiiacr"
         },
         "appServicePlanName": {
-            "value": "chiaradigi-asp"
+            "value": "chiaradigii-asp"
         },
         "siteName": {
-            "value": "chiaradigi-ex3"
+            "value": "chiaradigii-ex3"
         },
         "containerRegistryImageName": {
-            "value": "chiaradigiapp-ex3"
+            "value": "chiaradigiiapp-ex3"
         }
     }
 }
