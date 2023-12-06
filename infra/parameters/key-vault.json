@@ -16,9 +16,6 @@
           "principalType": "ServicePrincipal"
         }
       ]
-    },
-    "containerRegistryName": {
-      "value": "chiaradigiacr"
     }
   }
 }
