@@ -9,7 +9,7 @@ env:
     REGISTRY_LOGIN_SERVER: 'chiaradigiacr.azurecr.io'
     KEY_VAULT_SECRET_NAME_ACR_USERNAME: 'acr-username'
     KEY_VALUE_SECRET_NAME_ACR_PASSWORD: 'acr-password1'
-    KEY_VAULT_NAME: 'chiaradigi-kv'
+    KEY_VAULT_NAME: 'chiaradigii-kv'
     IMAGE_BASE_NAME: 'chiaradigiapp-ex3'
     AZURE_WEBAPP_NAME: 'chiaradigi-ex3'
 

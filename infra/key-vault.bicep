@@ -2,7 +2,7 @@ param keyVaultName string
 param location string = resourceGroup().location
 param roleAssignments array = []
 module keyvault 'modules/key-vault/vault/main.bicep' = {
-  name: '${uniqueString(deployment().name)}-kv'
+  name: '${uniqueString(deployment().name)}i-kv'
   params: {
     name: keyVaultName
     location: location

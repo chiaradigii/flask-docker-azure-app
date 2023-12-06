@@ -6,7 +6,7 @@
       "value": "West Europe" 
     },
     "keyVaultName": {
-      "value": "chiaradigi-kv"
+      "value": "chiaradigii-kv"
     },
     "roleAssignments": {
       "value": [
@@ -16,6 +16,9 @@
           "principalType": "ServicePrincipal"
         }
       ]
+    },
+    "containerRegistryName": {
+      "value": "chiaradigiacr"
     }
   }
 }
